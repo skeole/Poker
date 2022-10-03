@@ -20,14 +20,13 @@ public class Scoring {
         }
 
         Arrays.sort(suits);
-        boolean flush = suits[0] == suits[4];
+        boolean flush = (suits[0] == suits[4]);
 
         Arrays.sort(values); //in ascending order now
-        int highCard = values[4];
         int[] cardValues = new int[13];
 
         for (int val : values) {
-            cardValues[val]++; //cardValues[3] == # of threes
+            cardValues[val]++; //ex. cardValues[3] == # of threes
         }
 
         boolean two_of_a_kind = false;
@@ -64,10 +63,10 @@ public class Scoring {
 
         if (cardValues[0] * cardValues[1] * cardValues[2] * cardValues[3] * cardValues[12] == 1) {
             straight = true; 
-            highCard = 3;
-        } /* Ace/2/3/4/5 exception */
+            values[4] = 3; //technically now it becomes 0 1 2 3 3 but idgaf
+        } /* Ace, 2, 3, 4, 5 exception */
 
-        int tiebreaker = 0;
+        int score = 0;
 
         /*
          * Nothing; 0
@@ -160,12 +159,9 @@ public class Scoring {
         
          * TOTAL: 7488
          */
-
-
-        int score = highCard;
+        
         return score;
 
     }
 
-    
 }
