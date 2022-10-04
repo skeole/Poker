@@ -1,6 +1,5 @@
 package poker;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class PokerWinner { //should I have it extend util I'm not sure
@@ -26,8 +25,7 @@ public class PokerWinner { //should I have it extend util I'm not sure
                     playerHands[i][j] = Util.card(sc.nextLine());
                 }
             }
-            int winner = Util.bestDeck(board, playerHands) + 1;
-            System.out.println("Player " + winner + " won the game. His deck was " + Arrays.toString(playerHands[winner]) + ". ");
+            Util.reportScores(Util.scores(board, playerHands));
             run = false;
         }
         sc.close();
