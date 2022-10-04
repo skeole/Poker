@@ -26,7 +26,6 @@ public abstract class Util { //static is an allowed modifier in abstract classes
     public static int score(int[] deck) {
         int[] suits = new int[5];
         int[] values = new int[5];
-        System.out.println(Arrays.toString(deck));
 
         for (int i = 0; i < 5; i++) {
             suits[i] = deck[i] % 4;
