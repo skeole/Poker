@@ -2,7 +2,7 @@ package poker;
 
 import java.util.Arrays;
 
-public class Util {
+public abstract class Util { //static is an allowed modifier in abstract classes tf
 
     static int size = 20;
     static int[][] combinations = new int[size][size];
@@ -24,8 +24,6 @@ public class Util {
     */
 
     public static int score(int[] deck) {
-        //deck: the 5
-
         int[] suits = new int[5];
         int[] values = new int[5];
 
@@ -189,5 +187,167 @@ public class Util {
          * TOTAL: 7488
          */
 
+    }
+
+    public static int bestScore(int[] deck, int[] hand) {
+        int[] combinedHand = new int[] {deck[0], deck[1], deck[2], deck[3], deck[4], hand[0], hand[1]};
+        int bestScore = -1;
+        for (int i = 0; i < 6; i++) {
+            for (int j = i + 1; j < 7; i++) {
+                int[] newDeck = new int[5];
+                int index = 0;
+                for (int k = 0; k < 7; k++) {
+                    if ((k != i) && (k != j)) {
+                        newDeck[index] = combinedHand[k];
+                        index++;
+                    }
+                }
+                bestScore = Math.max(bestScore, score(newDeck));
+            }
+        }
+        return bestScore;
+    }
+
+    public static int bestDeck(int[] deck, int[][] hands) {
+        int bestScr = -1;
+        int best = -1;
+        for (int i = 0; i < hands.length; i++) {
+            int temp = bestScore(deck, hands[i]);
+            if (temp > bestScr) {
+                bestScr = temp;
+                best = i;
+            }
+        }
+        return best;
+    }
+
+    public static int card(String suit, String value) {
+        int suitNum;
+        int cardNum;
+        switch (suit.toLowerCase()) {
+            case "diamonds":
+                suitNum = 0;
+                break;
+            case "diamond":
+                suitNum = 0;
+                break;
+
+            case "hearts":
+                suitNum = 1;
+                break;
+            case "heart":
+                suitNum = 1;
+                break;
+
+            case "clubs":
+                suitNum = 2;
+                break;
+            case "club":
+                suitNum = 2;
+                break;
+
+            case "spades":
+                suitNum = 3;
+                break;
+            case "spade":
+                suitNum = 3;
+                break;
+
+            default:
+                throw new IllegalArgumentException(suit + " is not a suit lol");
+        }
+
+        switch (value.toLowerCase()) {
+
+            case "Ace":
+                cardNum = 12;
+                break;
+            case "1":
+                cardNum = 12;
+                break;
+
+            case "two":
+                cardNum = 0;
+                break;
+            case "2":
+                cardNum = 0;
+                break;
+
+            case "three":
+                cardNum = 1;
+                break;
+            case "3":
+                cardNum = 1;
+                break;
+
+            case "four":
+                cardNum = 2;
+                break;
+            case "4":
+                cardNum = 2;
+                break;
+
+            case "five":
+                cardNum = 3;
+                break;
+            case "5":
+                cardNum = 3;
+                break;
+
+            case "six":
+                cardNum = 4;
+                break;
+            case "6":
+                cardNum = 4;
+                break;
+
+            case "seven":
+                cardNum = 5;
+                break;
+            case "7":
+                cardNum = 5;
+                break;
+
+            case "eight":
+                cardNum = 6;
+                break;
+            case "8":
+                cardNum = 6;
+                break;
+
+            case "nine":
+                cardNum = 7;
+                break;
+            case "9":
+                cardNum = 7;
+                break;
+
+            case "ten":
+                cardNum = 8;
+                break;
+            case "10":
+                cardNum = 8;
+                break;
+
+            case "jack":
+                cardNum = 9;
+                break;
+
+            case "queen":
+                cardNum = 10;
+                break;
+
+            case "king":
+                cardNum = 11;
+                break;
+
+            default:
+                throw new IllegalArgumentException(value + " is not a card value");
+        }
+        return suitNum + 4 * cardNum;
+    }
+
+    public static int card(String card) {
+        return card(card.split(" of ")[0], card.split(" of ")[1]);
     }
 }
