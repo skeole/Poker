@@ -3,7 +3,7 @@ package poker;
 import java.util.Arrays;
 
 public class PokerGame {
-    public static boolean randomGame(int[] playerHand, int[] revealedCards, int numPlayers) {
+    public static boolean[] randomGame(int[] playerHand, int[] revealedCards, int numPlayers) {
         Deck deck = new Deck();
         int[] gameCards = new int[5];
         int[][] hands = new int[numPlayers + 1][2];
@@ -27,6 +27,6 @@ public class PokerGame {
         int[] scores = Util.scores(gameCards, hands);
         int score = scores[0];
         Arrays.sort(scores);
-        return (scores[numPlayers] == score);
+        return new boolean[] {(score > scores[numPlayers - 1]), (score == scores[numPlayers])};
     }
 }

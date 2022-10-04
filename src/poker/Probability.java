@@ -25,18 +25,21 @@ public class Probability {
         int numPlayers = sc.nextInt();
         sc.nextLine();
 
-        int numSuccesses = 0;
-
         System.out.print("How many trials do you want to run (I recommend less than 1 million): ");
         int numAttempts = sc.nextInt();
         sc.nextLine();
 
+        int numWins = 0;
+        int numTies = 0;
         for (int i = 0; i < numAttempts; i++) {
-            if (PokerGame.randomGame(hand, board, numPlayers)) numSuccesses++;
+            boolean[] stats = PokerGame.randomGame(hand, board, numPlayers);
+            if (stats[0]) numWins++;
+            else if (stats[1]) numTies++;
             if ((i % 100000 == 0) && (i > 0)) System.out.println(i + " passed");
         }
-        System.out.println("You won " + numSuccesses + " out of " + numAttempts + " total games. ");
-        System.out.println("Your winning percentage was: " + 1.0 * numSuccesses / numAttempts);
+        System.out.println("You won " + numWins + " and tied" + numTies + "out of " + numAttempts + " total games. ");
+        System.out.println("Your probability of winning was: " + 1.0 * numWins / numAttempts);
+        System.out.println("Your probability of tying was: " + 1.0 * numTies / numAttempts);
         sc.close();
     }
 }
