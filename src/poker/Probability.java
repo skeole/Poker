@@ -37,9 +37,9 @@ public class Probability {
             else if (stats[1]) numTies++;
             if ((i % 100000 == 0) && (i > 0)) System.out.println(i + " passed");
         }
-        System.out.println("You won " + numWins + " and tied" + numTies + "out of " + numAttempts + " total games. ");
-        System.out.println("Your probability of winning was: " + 1.0 * numWins / numAttempts);
-        System.out.println("Your probability of tying was: " + 1.0 * numTies / numAttempts);
+        System.out.println("You won " + numWins + " and tied " + numTies + " out of " + numAttempts + " total games. ");
+        System.out.println("Your probability of winning was " + 100.0 * numWins / numAttempts + "%.");
+        System.out.println("Your probability of tying was " + 100.0 * numTies / numAttempts + "%.");
         sc.close();
     }
 }
