@@ -193,11 +193,12 @@ public abstract class Util { //static is an allowed modifier in abstract classes
         int[] combinedHand = new int[] {deck[0], deck[1], deck[2], deck[3], deck[4], hand[0], hand[1]};
         int bestScore = -1;
         for (int i = 0; i < 6; i++) {
-            for (int j = i + 1; j < 7; i++) {
+            for (int j = i + 1; j < 7; j++) {
                 int[] newDeck = new int[5];
                 int index = 0;
                 for (int k = 0; k < 7; k++) {
                     if ((k != i) && (k != j)) {
+                        System.out.print(index);
                         newDeck[index] = combinedHand[k];
                         index++;
                     }
@@ -231,12 +232,18 @@ public abstract class Util { //static is an allowed modifier in abstract classes
             case "diamond":
                 suitNum = 0;
                 break;
+            case "d":
+                suitNum = 0;
+                break;
 
             case "hearts":
                 suitNum = 1;
                 break;
             case "heart":
                 suitNum = 1;
+                break;
+            case "h":
+                suitNum = 0;
                 break;
 
             case "clubs":
@@ -245,12 +252,18 @@ public abstract class Util { //static is an allowed modifier in abstract classes
             case "club":
                 suitNum = 2;
                 break;
+            case "c":
+                suitNum = 0;
+                break;
 
             case "spades":
                 suitNum = 3;
                 break;
             case "spade":
                 suitNum = 3;
+                break;
+            case "s":
+                suitNum = 0;
                 break;
 
             default:
@@ -259,7 +272,10 @@ public abstract class Util { //static is an allowed modifier in abstract classes
 
         switch (value.toLowerCase()) {
 
-            case "Ace":
+            case "ace":
+                cardNum = 12;
+                break;
+            case "a":
                 cardNum = 12;
                 break;
             case "1":
@@ -332,13 +348,22 @@ public abstract class Util { //static is an allowed modifier in abstract classes
             case "jack":
                 cardNum = 9;
                 break;
+            case "j":
+                cardNum = 12;
+                break;
 
             case "queen":
                 cardNum = 10;
                 break;
+            case "q":
+                cardNum = 12;
+                break;
 
             case "king":
                 cardNum = 11;
+                break;
+            case "k":
+                cardNum = 12;
                 break;
 
             default:
