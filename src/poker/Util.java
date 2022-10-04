@@ -193,7 +193,7 @@ public abstract class Util { //static is an allowed modifier in abstract classes
         int[] combinedHand = new int[] {deck[0], deck[1], deck[2], deck[3], deck[4], hand[0], hand[1]};
         int bestScore = -1;
         for (int i = 0; i < 6; i++) {
-            for (int j = i + 1; j < 7; i++) {
+            for (int j = i + 1; j < 7; j++) {
                 int[] newDeck = new int[5];
                 int index = 0;
                 for (int k = 0; k < 7; k++) {
@@ -208,17 +208,12 @@ public abstract class Util { //static is an allowed modifier in abstract classes
         return bestScore;
     }
 
-    public static int bestDeck(int[] deck, int[][] hands) {
-        int bestScr = -1;
-        int best = -1;
+    public static int[] scores(int[] deck, int[][] hands) {
+        int[] scores = new int[hands.length];
         for (int i = 0; i < hands.length; i++) {
-            int temp = bestScore(deck, hands[i]);
-            if (temp > bestScr) {
-                bestScr = temp;
-                best = i;
-            }
+            scores[i] = bestScore(deck, hands[i]);
         }
-        return best;
+        return scores;
     }
 
     public static int card(String suit, String value) {
@@ -231,11 +226,17 @@ public abstract class Util { //static is an allowed modifier in abstract classes
             case "diamond":
                 suitNum = 0;
                 break;
+            case "d":
+                suitNum = 0;
+                break;
 
             case "hearts":
                 suitNum = 1;
                 break;
             case "heart":
+                suitNum = 1;
+                break;
+            case "h":
                 suitNum = 1;
                 break;
 
@@ -245,11 +246,17 @@ public abstract class Util { //static is an allowed modifier in abstract classes
             case "club":
                 suitNum = 2;
                 break;
+            case "c":
+                suitNum = 2;
+                break;
 
             case "spades":
                 suitNum = 3;
                 break;
             case "spade":
+                suitNum = 3;
+                break;
+            case "s":
                 suitNum = 3;
                 break;
 
@@ -259,7 +266,10 @@ public abstract class Util { //static is an allowed modifier in abstract classes
 
         switch (value.toLowerCase()) {
 
-            case "Ace":
+            case "ace":
+                cardNum = 12;
+                break;
+            case "a":
                 cardNum = 12;
                 break;
             case "1":
@@ -332,12 +342,21 @@ public abstract class Util { //static is an allowed modifier in abstract classes
             case "jack":
                 cardNum = 9;
                 break;
+            case "j":
+                cardNum = 9;
+                break;
 
             case "queen":
                 cardNum = 10;
                 break;
+            case "q":
+                cardNum = 10;
+                break;
 
             case "king":
+                cardNum = 11;
+                break;
+            case "k":
                 cardNum = 11;
                 break;
 
@@ -349,5 +368,31 @@ public abstract class Util { //static is an allowed modifier in abstract classes
 
     public static int card(String card) {
         return card(card.split(" of ")[1], card.split(" of ")[0]);
+    }
+
+    public static String parseScore(int score) {
+        if (score < 0) throw new IllegalArgumentException("Score has to be at least zero lol");
+        if (score < 1287) return "High Card";
+        if (score < 4147) return "Pair";
+        if (score < 5005) return "Two Pair";
+        if (score < 5863) return "Three of a Kind";
+        if (score < 5876) return "Straight";
+        if (score < 7163) return "Flush";
+        if (score < 7319) return "Full House";
+        if (score < 7475) return "Four of a Kind";
+        if (score < 7487) return "Straight Flush";
+        if (score == 7487) return "Royal Flush";
+        throw new IllegalArgumentException("Score cannot be greater than 7487");
+    }
+
+    public static String parseCard(int number) {
+        if ((number < 0) || (number > 51)) throw new IllegalArgumentException("Card number must be between 0 and 51");
+        return (new String[] {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"})[number / 4] + " of " + (new String[] {"Diamonds", "Hearts", "Clubs", "Spades"})[number % 4];
+    }
+
+    public static void reportScores(int[] scores) {
+        for (int i = 0; i < scores.length; i++) {
+            System.out.println("Player " + (i+1) + " scored " + scores[i] + ", meaning they had a " + parseScore(scores[i]) + ". ");
+        }
     }
 }
