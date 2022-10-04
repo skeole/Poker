@@ -348,6 +348,6 @@ public abstract class Util { //static is an allowed modifier in abstract classes
     }
 
     public static int card(String card) {
-        return card(card.split(" of ")[0], card.split(" of ")[1]);
+        return card(card.split(" of ")[1], card.split(" of ")[0]);
     }
 }
