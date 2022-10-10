@@ -33,15 +33,20 @@ public class Probability {
         int numTies = 0;
 
         Util.init();
+        long elapsedTime = System.nanoTime();
         for (int i = 0; i < numAttempts; i++) {
             boolean[] stats = PokerGame.randomGame(hand, board, numPlayers);
             if (stats[0]) numWins++;
             else if (stats[1]) numTies++;
             if ((i % 100000 == 0) && (i > 0)) System.out.println(i + " passed");
         }
+        elapsedTime = System.nanoTime() - elapsedTime;
+        double ET = (double) elapsedTime / 1000000000;
         System.out.println("You won " + numWins + " and tied " + numTies + " out of " + numAttempts + " total games. ");
         System.out.println("Your probability of winning was " + 100.0 * numWins / numAttempts + "%.");
         System.out.println("Your probability of tying was " + 100.0 * numTies / numAttempts + "%.");
+        System.out.println("Computation time: " + ET + " seconds. ");
+        System.out.println("Trials per second: " + numAttempts / ET);
         sc.close();
     }
 }
