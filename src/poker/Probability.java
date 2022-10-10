@@ -31,6 +31,8 @@ public class Probability {
 
         int numWins = 0;
         int numTies = 0;
+
+        Util.init();
         for (int i = 0; i < numAttempts; i++) {
             boolean[] stats = PokerGame.randomGame(hand, board, numPlayers);
             if (stats[0]) numWins++;

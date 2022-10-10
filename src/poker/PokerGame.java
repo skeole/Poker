@@ -23,7 +23,6 @@ public class PokerGame {
                 hands[i+1][j] = deck.randomCard();
             }
         }
-        Util.init();
         int[] scores = Util.scores(gameCards, hands);
         int score = scores[0];
         Arrays.sort(scores);
